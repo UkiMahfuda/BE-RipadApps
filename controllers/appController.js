@@ -5,7 +5,7 @@ const { firestore } = require("../services/firestore");
 
 const getUserHistory = async (req, res) => {
   try {
-    const userId = req.user.uid; // UID dari middleware Firebase
+    const userId = req.user.uid;
     const historyCollection = firestore.collection("predictions");
     const snapshot = await historyCollection.where("userId", "==", userId).orderBy("timestamp", "desc").get();
 
@@ -44,17 +44,13 @@ const predictDisease = async (req, res) => {
   }
 
   try {
-    // 1. Kirim gambar langsung ke API model untuk prediksi
     const predictionResult = await predictDiseaseFromModel(req.file);
 
-    // 2. Setelah prediksi, unggah gambar ke Google Cloud Storage
     const imageUrl = await uploadFileToStorage(req.file);
 
-    // 3. Simpan data prediksi dan URL gambar ke Firestore
     // const userId = req.user.uid; // Pastikan middleware autentikasi mengisi `req.user`
     const docId = await savePredictionToFirestore(imageUrl, predictionResult);
 
-    // 4. Kirim respons ke pengguna
     res.status(200).json({
       status: true,
       message: "Prediction successful",

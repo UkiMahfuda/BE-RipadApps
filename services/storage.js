@@ -28,10 +28,10 @@ const uploadFileToStorage = async (file) => {
     stream.end(file.buffer);
   });
 
-  await fileUpload.makePublic(); // Membuat file dapat diakses publik
+  await fileUpload.makePublic();
 
   const fileUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
-  return fileUrl; // Mengembalikan URL file
+  return fileUrl;
 };
 
 module.exports = { uploadFileToStorage };

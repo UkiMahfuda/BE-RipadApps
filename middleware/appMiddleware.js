@@ -11,7 +11,7 @@ async function verifyToken(req, res, next) {
   }
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
-    req.user = decodedToken; // Menyimpan data pengguna di request
+    req.user = decodedToken;
     next();
   } catch (error) {
     return res.status(401).send({ status: false, error: "Invalid token" });

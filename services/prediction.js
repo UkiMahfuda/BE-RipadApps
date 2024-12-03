@@ -9,8 +9,8 @@ const predictDiseaseFromModel = async (file) => {
     const response = await axios.post("https://model-api-680747253947.asia-southeast2.run.app/predict", formData, {
       headers: formData.getHeaders(),
     });
-    console.log("Predict Response Success"); // Log respons
-    // console.log("Model API Response:", response.data); // Log respons
+    console.log("Predict Response Success");
+    // console.log("Model API Response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error response from model API:", error.response?.data || error.message);

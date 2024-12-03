@@ -5,13 +5,14 @@ const { predictDisease, getUserHistory, getAllUserHistory, deletePrediction } = 
 
 const router = express.Router();
 const upload = multer({
-  storage: multer.memoryStorage(), // Simpan file dalam memori untuk akses buffer
-  limits: { fileSize: 5 * 1024 * 1024 }, // Batas ukuran file, misalnya 5MB
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
 });
-multer(); // Middleware untuk mengunggah file
+multer();
 
 router.post("/predict", upload.single("image"), predictDisease);
-router.get("/history", getAllUserHistory);
+router.get("/history", getUserHistory);
+router.get("/allHistory", getAllUserHistory);
 router.delete("/history/:predictionId", deletePrediction);
 
 module.exports = router;
