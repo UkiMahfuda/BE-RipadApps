@@ -5,8 +5,9 @@ const firestore = new Firestore({
   keyFilename: `${__dirname}/serviceAccountKey.json`,
 });
 
-const savePredictionToFirestore = async (imageUrl, predictionResult) => {
+const savePredictionToFirestore = async (userId, imageUrl, predictionResult) => {
   const predictionData = {
+    userId,
     imageUrl,
     predictionResult,
     timestamp: new Date(),

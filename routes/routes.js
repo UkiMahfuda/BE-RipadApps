@@ -10,9 +10,10 @@ const upload = multer({
 });
 multer();
 
-router.post("/predict", upload.single("image"), predictDisease);
-router.get("/history", getUserHistory);
-router.get("/allHistory", getAllUserHistory);
+router.post("/predict", upload.single("image"), verifyToken, predictDisease);
+router.get("/history", verifyToken, getUserHistory);
 router.delete("/history/:predictionId", deletePrediction);
+
+router.get("/allHistory", getAllUserHistory);
 
 module.exports = router;

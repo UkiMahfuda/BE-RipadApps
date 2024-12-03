@@ -48,13 +48,14 @@ const predictDisease = async (req, res) => {
 
     const imageUrl = await uploadFileToStorage(req.file);
 
-    // const userId = req.user.uid; // Pastikan middleware autentikasi mengisi `req.user`
-    const docId = await savePredictionToFirestore(imageUrl, predictionResult);
+    const userId = req.user.uid;
+    const docId = await savePredictionToFirestore(userId, imageUrl, predictionResult);
 
     res.status(200).json({
       status: true,
       message: "Prediction successful",
       predictionId: docId,
+      userId,
       imageUrl,
       predictionResult,
     });
