@@ -1,11 +1,11 @@
 const { Storage } = require("@google-cloud/storage");
 
 const googleCloudPlatform = new Storage({
-  projectId: "capstoneripad",
+  projectId: "capstone-ripad",
   keyFilename: `${__dirname}/serviceAccountKey.json`,
 });
 
-const bucketName = "bucket-input-img";
+const bucketName = "bucket-img-user";
 
 const uploadFileToStorage = async (file) => {
   const bucket = googleCloudPlatform.bucket(bucketName);
@@ -28,10 +28,10 @@ const uploadFileToStorage = async (file) => {
     stream.end(file.buffer);
   });
 
-  await fileUpload.makePublic();
+  await fileUpload.makePublic(); // Membuat file dapat diakses publik
 
   const fileUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
-  return fileUrl;
+  return fileUrl; // Mengembalikan URL file
 };
 
 module.exports = { uploadFileToStorage };
