@@ -99,17 +99,26 @@ const deletePrediction = async (req, res) => {
 
   try {
     const docRef = firestore.collection("predictions").doc(predictionId);
+
+    const doc = await docRef.get();
+    if (!doc.exists) {
+      return res.status(404).json({
+        status: false,
+        error: "History not found",
+      });
+    }
+
     await docRef.delete();
 
     res.status(200).json({
       status: true,
-      message: `Deleted History Success`,
+      message: "Deleted history successfully",
     });
   } catch (error) {
-    console.error("Error delete prediction:", error);
+    console.error("Error deleting prediction:", error);
     res.status(500).json({
       status: false,
-      error: "Fail to delete prediction",
+      error: "Failed to delete prediction",
     });
   }
 };
